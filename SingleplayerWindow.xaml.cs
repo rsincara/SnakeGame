@@ -1,22 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.Remoting.Channels;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using System.Windows.Threading;
 using System.IO;
+using WpfApp1.GameClasses;
 
 namespace WpfApp1
 {
@@ -64,7 +54,7 @@ namespace WpfApp1
             time = new DispatcherTimer();
             currentDurection = Directions.Stay;
             snakeBody = new List<SnakeElement>();
-            
+
             snakeBody.Add(new SnakeElementHead(new Point(moveSize, moveSize)));
             snakeBody[0].rectangle.Fill = SettingsClass.ColorOfPlayer;
             time.Interval =
@@ -122,75 +112,18 @@ namespace WpfApp1
 
         void time_Tick(object sender, EventArgs e)
         {
-            for (int i = snakeBody.Count - 1; i > 0; i--)
-            {
-                snakeBody[i] = snakeBody[i - 1];
-            }
-
-            if (snakeBody[0].point == food.point)
-            {
-                snakeBody.Add(new SnakeElement(food.point));
-                AddFoodInCanvas();
-                score += 10;
-                scoreText.Text = score.ToString();
-            }
-
-            switch (currentDurection)
-            {
-                case Directions.Down:
-                    snakeBody[0] = new SnakeElement(new Point(snakeBody[0].point.X, snakeBody[0].point.Y + moveSize));
-                    break;
-                case Directions.Left:
-                    snakeBody[0] = new SnakeElement(new Point(snakeBody[0].point.X - moveSize, snakeBody[0].point.Y));
-                    break;
-                case Directions.Right:
-                    snakeBody[0] = new SnakeElement(new Point(snakeBody[0].point.X + moveSize, snakeBody[0].point.Y));
-                    break;
-                case Directions.Up:
-                    snakeBody[0] = new SnakeElement(new Point(snakeBody[0].point.X, snakeBody[0].point.Y - moveSize));
-                    break;
-            }
-
-            if (snakeBody[0].point.X < 0 || snakeBody[0].point.Y < 0 || snakeBody[0].point.X > width - moveSize ||
-                snakeBody[0].point.Y > height - moveSize)
-            {
-                GameOver("Вы проиграли, ваш рекорд: " + score);
-            }
-
-            for (int i = 1; i < snakeBody.Count; i++)
-            {
-                if (snakeBody[0].point == snakeBody[i].point)
-                {
-                    GameOver("Вы съели сами себя! Ваш результат: " + score);
-                }
-            }
-
-            for (int i = 0; i < canvas.Children.Count; i++)
-            {
-                if (canvas.Children[i] is Rectangle)
-                    count++;
-            }
-
-            canvas.Children.RemoveRange(1, count);
-            count = 0;
-            AddSnakeInCanvas();
+            MoveSnake();
+            CheckAndIncrease();
+            CheckAndChangeDirectory();
+            CheckForFails();
+            DrawSnake();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        void Window_Loaded(object sender, RoutedEventArgs e)
         {
             AddFoodInCanvas();
             AddSnakeInCanvas();
             time.Start();
-        }
-
-
-        public enum Directions
-        {
-            Up,
-            Down,
-            Left,
-            Right,
-            Stay
         }
     }
 }

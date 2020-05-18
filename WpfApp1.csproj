@@ -103,6 +103,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="SinglePlayerMethods.cs">
+      <DependentUpon>SingleplayerWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SingleplayerWindow.xaml.cs">
       <DependentUpon>SingleplayerWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
