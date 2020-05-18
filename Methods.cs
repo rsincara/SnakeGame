@@ -37,14 +37,15 @@ namespace WpfApp1
             foodCanvas.Children.Add(food.circle);
         }
 
-        void AddSnakeInCanvas()
+      
+        void AddSnakeInCanvas(List<SnakeElement> snakebody, Canvas canvas)
         {
-            foreach (var snake in snakeBody)
+            foreach (var snakeElement in snakebody)
             {
-                snake.Create(canvas);
+                snakeElement.Create(canvas);
             }
         }
-
+        
         void MoveSnake(List<SnakeElement> snakebody)
         {
             for (int i = snakebody.Count - 1; i > 0; i--)
@@ -188,7 +189,12 @@ namespace WpfApp1
             {
                 if (snakeBodyEnemy[0].point == snakeBodyEnemy[i].point)
                 {
-                    RespawnEnemy(ref snakeBodyEnemy);
+                    if(enemyLifes > 1) 
+                        RespawnEnemy(ref snakeBodyEnemy);
+                    else
+                    {
+                        GameOver("Первый игрок победил! Ваш счет: " + score);
+                    }
                 }
             }
             
@@ -199,9 +205,10 @@ namespace WpfApp1
                     RespawnEnemy(ref snakeBodyEnemy);
                 else
                 {
-                    enemyCanvas.Children.Clear();
+                    GameOver("Первый игрок победил! Ваш счет: " + score);
                 }
             }
+
 
             for (int i = 0; i < snakeBody.Count; i++)
             {
@@ -209,12 +216,17 @@ namespace WpfApp1
                 { 
                     if (enemyLifes > 1)
                         RespawnEnemy(ref snakeBodyEnemy);
-                    else enemyCanvas.Children.Clear();
+                    else
+                    {
+                        GameOver("Первый игрок победил! Ваш счет: " + score);
+                    }
                 }
             }
         }
+        
+      
 
-        void DrawPlayerSnake()
+        void DrawSnake(List<SnakeElement> snakebody, Canvas canvas)
         {
             int count = 0;
             for (int i = 0; i < canvas.Children.Count; i++)
@@ -222,22 +234,9 @@ namespace WpfApp1
                 if (canvas.Children[i] is Rectangle)
                     count++;
             }
-
             canvas.Children.RemoveRange(0, count);
-            AddSnakeInCanvas();
+            AddSnakeInCanvas(snakebody, canvas);
         }
-
-        void DrawEnemySnake()
-        {
-            int count = 0;
-            for (int i = 0; i < enemyCanvas.Children.Count; i++)
-            {
-                if (enemyCanvas.Children[i] is Rectangle)
-                    count++;
-            }
-
-            enemyCanvas.Children.RemoveRange(0, count);
-            AddEnemySnakeInCanvas();
-        }
+        
     }
 }

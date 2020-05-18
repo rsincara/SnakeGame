@@ -96,7 +96,6 @@ namespace WpfApp1
             }
         }
 
-
         private void GameOver(string cause)
         {
             var list = new List<string>();
@@ -108,57 +107,29 @@ namespace WpfApp1
             File.AppendAllLines("scores/scores.txt", list);
         }
 
-
-        void AddEnemySnakeInCanvas()
-        {
-            foreach (var snake in snakeBodyEnemy)
-            {
-                snake.Create(enemyCanvas);
-            }
-        }
-
-
         void time_Tick(object sender, EventArgs e)
         {
-            botMoving = new BotMoving(food, snakeBody, snakeBodyEnemy, currentPlayerDirection,
-                                      currentEnemyDirections, width, height, moveSize, canvas, enemyCanvas);
+            botMoving = new BotMoving(food, snakeBody, snakeBodyEnemy,
+                                      currentEnemyDirections, width, height, moveSize);
             if (SettingsClass.Mode == 1) // против компа
-            {
                 currentEnemyDirections = botMoving.GetNextDirection();
-            }
             MoveSnake(snakeBody);
             MoveSnake(snakeBodyEnemy);
-
             CheckAndIncreaseEnemy(ref snakeBodyEnemy);
             CheckAndIncreasePlayer(ref snakeBody);
-
             CheckAndChangeDirectory();
-                
+            DrawSnake(snakeBody, canvas);
+            DrawSnake(snakeBodyEnemy, enemyCanvas);
             CheckForFailsPlayer();
             CheckForFailsEnemy();
-
-         
-
-            DrawPlayerSnake();
-            DrawEnemySnake();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             AddFoodInCanvas();
-            AddSnakeInCanvas();
-            AddEnemySnakeInCanvas();
+            AddSnakeInCanvas(snakeBody, canvas);
+            AddSnakeInCanvas(snakeBodyEnemy, enemyCanvas);
             time.Start();
         }
-
-
-       // public enum Directions
-       // {
-           // Up,
-         //   Down,
-        //    Left,
-         //   Right,
-       //     Stay
-      //  }
     }
 }
