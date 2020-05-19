@@ -23,7 +23,8 @@ namespace WpfApp1
             rectangle = new Rectangle();
             rectangle.Height = rectangle.Width = 30;
             rectangle.Fill = SettingsClass.ColorOfPlayer;
-
+            rectangle.StrokeDashCap = PenLineCap.Round;
+            rectangle.Stroke = Brushes.Black;
         }
         public void Create(Canvas canvas)
         {
