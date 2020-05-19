@@ -6,10 +6,18 @@
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         Title="SingleplayerWindow" Height="450" Width="800" KeyDown="Window_KeyDown" Loaded="Window_Loaded" >
-
+    <Window.Background>
+        <ImageBrush x:Name="Backgr" ImageSource="C:\Users\Bitard\source\repos\WpfApp1\bin\Debug\images\backgame.png"/>
+    </Window.Background>
+    
     <Grid>
-        <Canvas x:Name="canvas" HorizontalAlignment="Left" Height="450" VerticalAlignment="Top" Width="800"/>
-        <Grid x:Name="myGrid" HorizontalAlignment="Right" Height="100" VerticalAlignment="Top" Width="100"/>
+        <Canvas x:Name="canvas" HorizontalAlignment="Left" Height="450" VerticalAlignment="Top" Width="800" Panel.ZIndex="1">
+            
+        </Canvas>
+        <Canvas x:Name="foodCanvas" HorizontalAlignment="Left" Height="450" VerticalAlignment="Top" Width="800" Panel.ZIndex="0"/>
+        <Grid x:Name="myGrid" HorizontalAlignment="Right" Height="400" VerticalAlignment="Top" Width="100">
+            <TextBlock x:Name="resultBlock" HorizontalAlignment="Left" Margin="0,12,0,0" TextWrapping="Wrap" Text="Очки: " VerticalAlignment="Top" Height="29" Width="87" FontSize="20"/>
+        </Grid>
 
     </Grid>
 </Window>

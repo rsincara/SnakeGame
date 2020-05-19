@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using WpfApp1.GameClasses;
 
@@ -12,7 +13,6 @@ namespace WpfApp1
 {
     public partial class MultiPlayer : Window
     {
-        private TextBlock scoreText;
         const int moveSize = 30;
         int score;
         BotMoving botMoving;
@@ -32,30 +32,11 @@ namespace WpfApp1
         public MultiPlayer()
         {
             InitializeComponent();
+            Backgr.ImageSource = new BitmapImage(new Uri("images/backgame.png", UriKind.Relative));
             score = 0;
-            scoreText = new TextBlock();
-            TextBlock scoreBlock = new TextBlock()
-            {
-                Text = "Очки: ",
-                Height = 50,
-                Width = 30
-            };
-            scoreText.Width = 30;
-            scoreText.Height = 30;
-            scoreText.Text = score.ToString();
-            myGrid.Height = 150;
-            myGrid.Width = 100;
-            myGrid.HorizontalAlignment = HorizontalAlignment.Right;
-            myGrid.Children.Add(scoreBlock);
-            myGrid.Children.Add(scoreText);
-            this.foodCanvas.Width = width;
-            this.foodCanvas.Height = height;
-            this.enemyCanvas.Width = width;
-            this.enemyCanvas.Height = height;
-            this.canvas.Width = width;
-            this.canvas.Height = height;
-            this.Width = width;
-            this.Height = height;
+            Width = width + 100;
+            foodCanvas.Width = enemyCanvas.Width = canvas.Width = width;
+            foodCanvas.Height = enemyCanvas.Height = canvas.Height = Height = height;
             playerStartPosition = new Point(moveSize, moveSize);
             enemyStartPosition = new Point(width / (moveSize + 4) * moveSize, height / (moveSize + 4) * moveSize);
             time = new DispatcherTimer();

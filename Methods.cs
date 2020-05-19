@@ -22,7 +22,7 @@ namespace WpfApp1
                 flag2 = snakeBodyEnemy.Any(x => x.point == correctPoint);
             }
             food = new Food(correctPoint);
-            food.Create();
+            food.Create(foodCanvas);
             foodCanvas.Children.Clear();
             foodCanvas.Children.Add(food.circle);
         }
@@ -51,7 +51,7 @@ namespace WpfApp1
                 snakebody.Add(new SnakeElement(food.point));
                 AddFoodInCanvas();
                 score += 10;
-                scoreText.Text = score.ToString();
+                resultBlock.Text = resultBlock.Text.Substring(0, 5) + score;
             }
         }
 

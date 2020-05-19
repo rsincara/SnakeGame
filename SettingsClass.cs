@@ -11,7 +11,7 @@ namespace WpfApp1
     {
         public static int Width = 500;
         public static int Height = 500;
-        public static int Difficulty = 200;  //100 - хард 200 - медиум 300 - изи
+        public static int Difficulty = 100;  //100 - хард 200 - медиум 300 - изи
         public static int Mode = 1;
 
         public static Brush ColorOfPlayer = Brushes.DarkGreen;

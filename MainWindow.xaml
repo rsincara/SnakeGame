@@ -10,12 +10,12 @@
         <ImageBrush x:Name="Backgr" ImageSource="C:\Users\Bitard\source\repos\WpfApp1\bin\Debug\images\main.jpg"/>
     </Window.Background>
     <Grid>
-        <TextBlock HorizontalAlignment="Left" Margin="2,43,0,0" TextWrapping="Wrap" Text="Snake Game" VerticalAlignment="Top" Height="114" Width="789" TextAlignment="Center" FontSize="48"/>
+        <TextBlock HorizontalAlignment="Left" Margin="2,43,0,0" TextWrapping="Wrap" Text="Snake Game" VerticalAlignment="Top" Height="114" Width="789" TextAlignment="Center" FontSize="72" FontFamily="Xirod"/>
         <StackPanel HorizontalAlignment="Left" Height="236" Margin="289,224,0,0" VerticalAlignment="Top" Width="215">
-            <Button Content="Singleplayer" Height="60" FontSize="24" Click="SinglePlayerButtonClick"/>
-            <Button Content="Multiplayer" Height="60" FontSize="24" Click="Button_Click_2"/>
-            <Button Content="Settings" Height="60" FontSize="24" Click="Button_Click"/>
-            <Button Content="Scores" Height="60" FontSize="24" Click="Button_Click_1"/>
+            <Button Content="Singleplayer" Height="60" FontSize="24" Click="SinglePlayerButtonClick" FontFamily="Arial Black"/>
+            <Button Content="Multiplayer" Height="60" FontSize="24" Click="Button_Click_2" FontFamily="Arial Black"/>
+            <Button Content="Settings" Height="60" FontSize="24" Click="Button_Click" FontFamily="Arial Black"/>
+            <Button Content="Scores" Height="60" FontSize="24" Click="Button_Click_1" FontFamily="Arial Black"/>
 
         </StackPanel>
 
