@@ -11,13 +11,11 @@ namespace WpfApp1
     {
         private void GameOver(string cause)
         {
-            var list = new List<string>();
             MessageBox.Show(cause);
             Close();
             time.Stop();
             this.Owner.Show();
-            list.Add(score.ToString());
-            File.AppendAllLines("scores/scores.txt", list);
+            ScoreClass.AddScore(score);
         }
 
         void AddSnakeInCanvas()
@@ -58,7 +56,7 @@ namespace WpfApp1
                 snakeBody.Add(new SnakeElement(food.point));
                 AddFoodInCanvas();
                 score += 10;
-                resultBlock.Text = resultBlock.Text.Substring(0,5) + score;
+                resultBlock.Text = resultBlock.Text.Substring(0,6) + score;
             }
         }
 

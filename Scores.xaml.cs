@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfApp1.GameClasses;
 
 namespace WpfApp1
 {
@@ -25,10 +27,7 @@ namespace WpfApp1
             stackPanel.HorizontalAlignment = HorizontalAlignment.Left;
             stackPanel.Margin = new Thickness(10, 30, 0, 0);
             stackPanel.Height = Height - 100;
-            var records = File.ReadAllLines("scores/scores.txt").OrderByDescending(int.Parse);
-            string[] scores;
-            scores = records.Count() > 10 ? records.Take(10).ToArray() : records.ToArray();
-
+            var scores = ScoreClass.GetScoresArray();
             for (int i = 0; i < scores.Length; i++)
             {
                 var txtbl = new TextBlock();
@@ -43,6 +42,11 @@ namespace WpfApp1
         {
             this.Close();
             Owner.Show();
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            Owner.Close();
         }
     }
 }

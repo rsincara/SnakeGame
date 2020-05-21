@@ -5,35 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
+        Closing="Window_Closing"  
         Title="MainWindow" Height="600" Width="800" ResizeMode="NoResize">
     <Window.Background>
         <ImageBrush x:Name="Backgr" ImageSource="C:\Users\Bitard\source\repos\WpfApp1\bin\Debug\images\main.jpg"/>
     </Window.Background>
     <Grid>
         <StackPanel x:Name="stackPanel" HorizontalAlignment="Left" Height="206" Margin="34,112,0,0" VerticalAlignment="Top" Width="262">
-            <Label Content="Разрешение экрана:" FontSize="24"/>
-            <Label Content="Цвет змейки:" FontSize="24"/>
-            <Label Content="Сложность:" FontSize="24"/>
+            <Label Content="Resolution:" FontSize="24"/>
+            <Label Content="Color of Snake:" FontSize="24"/>
+            <Label Content="Difficult:" FontSize="24"/>
             <Label Content=""/>
-            <Label Content="Режим: " FontSize="24"/>
+            <Label Content="Mode: " FontSize="24"/>
 
 
         </StackPanel>
-        <TextBox x:Name="width" HorizontalAlignment="Left" Height="23" Margin="295,127,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="height" HorizontalAlignment="Left" Height="23" Margin="442,127,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="width" HorizontalAlignment="Left" Height="23" Margin="175,125,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="48"/>
+        <TextBox x:Name="height" HorizontalAlignment="Left" Height="23" Margin="250,125,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="48"/>
         <Button Content="Применить" HorizontalAlignment="Left" Margin="269,453,0,0" VerticalAlignment="Top" Width="223" Height="54" FontSize="25" Click="Button_Click"/>
         <StackPanel x:Name="diffStack" HorizontalAlignment="Left" Height="100" Margin="169,209,0,0" VerticalAlignment="Top" Width="100">
-            <RadioButton Content="Легкая" FontSize="15"/>
-            <RadioButton Content="Средняя" FontSize="15"/>
-            <RadioButton Content="Сложная" FontSize="15"/>
+            <RadioButton Content="Easy" FontSize="15"/>
+            <RadioButton Content="Medium" FontSize="15"/>
+            <RadioButton Content="Hard" FontSize="15"/>
         </StackPanel>
-        <Label Content="X" HorizontalAlignment="Left" Margin="420,127,0,0" VerticalAlignment="Top"/>
+        <Label Content="X" HorizontalAlignment="Left" Margin="228,123,0,0" VerticalAlignment="Top"/>
         <Button Content="Назад" HorizontalAlignment="Left" Margin="29,453,0,0" VerticalAlignment="Top" Width="223" Height="54" FontSize="25" Click="Button_Click_1"/>
         <StackPanel x:Name="modeStack" HorizontalAlignment="Left" Height="100" Margin="132,274,0,0" VerticalAlignment="Top" Width="150">
-            <RadioButton x:Name="friendMode" Content="Против друга" FontSize="15"/>
-            <RadioButton x:Name="CPUMode" Content="Против CPU" FontSize="15"/>
+            <RadioButton x:Name="friendMode" Content="Versus Friend" FontSize="15"/>
+            <RadioButton x:Name="CPUMode" Content="Versus CPU" FontSize="15"/>
         </StackPanel>
-        <ComboBox x:Name="snakeColors" HorizontalAlignment="Left" Margin="208,168,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="snakeColors" HorizontalAlignment="Left" Margin="206,166,0,0" VerticalAlignment="Top" Width="120"/>
 
     </Grid>
 </Window>

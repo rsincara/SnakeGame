@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -51,7 +52,7 @@ namespace WpfApp1
                 snakebody.Add(new SnakeElement(food.point));
                 AddFoodInCanvas();
                 score += 10;
-                resultBlock.Text = resultBlock.Text.Substring(0, 5) + score;
+                resultBlock.Text = resultBlock.Text.Substring(0, 6) + score;
             }
         }
 
@@ -66,6 +67,8 @@ namespace WpfApp1
                 AddFoodInCanvas();
               
             }
+
+            if(snakebody.Count == 16) GameOver("Второй игрок съел 15 яблок!");
         }
 
         SnakeElement CreateSnakeBody(SnakeElement snakeElement, Point newPoint)
@@ -122,19 +125,21 @@ namespace WpfApp1
         void RespawnPlayer(ref List<SnakeElement> snakebody)
         {
             --playerLifes;
+            firstPlayerLifes.Text = firstPlayerLifes.Text.Substring(0,10) + playerLifes;
             currentPlayerDirection = Directions.Stay;
             var color = snakebody[0].rectangle.Fill;
             snakebody = new List<SnakeElement> {new SnakeElement(playerStartPosition)};
             snakebody[0].rectangle.Fill = color;
         }
 
-        void RespawnEnemy(ref List<SnakeElement> snakebody)
+        void RespawnEnemy()
         {
             --enemyLifes;
+            secondPlayerLifes.Text = secondPlayerLifes.Text.Substring(0,10) + enemyLifes;
             currentEnemyDirections = Directions.Stay;
-            var color = snakebody[0].rectangle.Fill;
-            snakebody = new List<SnakeElement> {new SnakeElement(enemyStartPosition)};
-            snakebody[0].rectangle.Fill = color;
+            var color = snakeBodyEnemy[0].rectangle.Fill;
+            snakeBodyEnemy = new List<SnakeElement> {new SnakeElement(enemyStartPosition)};
+            snakeBodyEnemy[0].rectangle.Fill = color;
         }
 
 
@@ -179,8 +184,9 @@ namespace WpfApp1
             {
                 if (snakeBodyEnemy[0].point == snakeBodyEnemy[i].point)
                 {
-                    if(enemyLifes > 1) 
-                        RespawnEnemy(ref snakeBodyEnemy);
+                    if (enemyLifes > 1)
+                        RespawnEnemy();
+
                     else
                     {
                         GameOver("Первый игрок победил! Ваш счет: " + score);
@@ -192,7 +198,7 @@ namespace WpfApp1
                snakeBodyEnemy[0].point.Y > height - moveSize)
             {
                 if (enemyLifes > 1)
-                    RespawnEnemy(ref snakeBodyEnemy);
+                    RespawnEnemy();
                 else
                 {
                     GameOver("Первый игрок победил! Ваш счет: " + score);
@@ -203,9 +209,13 @@ namespace WpfApp1
             for (int i = 0; i < snakeBody.Count; i++)
             {
                 if (snakeBodyEnemy[0].point == snakeBody[i].point)
-                { 
+                {
                     if (enemyLifes > 1)
-                        RespawnEnemy(ref snakeBodyEnemy);
+                    {
+                        score += 100;
+                        resultBlock.Text = resultBlock.Text.Substring(0, 6) + score;
+                        RespawnEnemy();
+                    }
                     else
                     {
                         GameOver("Первый игрок победил! Ваш счет: " + score);
@@ -213,20 +223,21 @@ namespace WpfApp1
                 }
             }
         }
-        
-      
 
         void DrawSnake(List<SnakeElement> snakebody, Canvas canvas)
         {
             int count = 0;
-            for (int i = 0; i < canvas.Children.Count; i++)
+            foreach (var item in canvas.Children)
             {
-                if (canvas.Children[i] is Rectangle)
-                    count++;
+                if (item is Rectangle) count++;
             }
             canvas.Children.RemoveRange(0, count);
             AddSnakeInCanvas(snakebody, canvas);
         }
-        
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            Owner.Close();
+        }
     }
 }

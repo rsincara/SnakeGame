@@ -15,8 +15,6 @@ namespace WpfApp1
         public static int Mode = 1;
 
         public static Brush ColorOfPlayer = Brushes.DarkGreen;
-        public static Brush ColorOfEnemy = Brushes.Indigo;
         //0 - против человека  1 - против конченого алгоритма
-        //public static Brush SnakeColor = Brushes.DarkGreen;
     }
 }

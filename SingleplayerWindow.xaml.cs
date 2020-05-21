@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -8,6 +9,7 @@ using System.Windows.Threading;
 using System.IO;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 using WpfApp1.GameClasses;
 
 namespace WpfApp1
@@ -16,10 +18,10 @@ namespace WpfApp1
     {
         const int moveSize = 30;
         int score;
-        DispatcherTimer time;
-        private Random rnd = new Random();
-        private int width = SettingsClass.Width; // Ширина окна
-        private int height = SettingsClass.Height; // Высота окна
+        readonly DispatcherTimer time;
+        private readonly Random rnd = new Random();
+        private readonly int width = SettingsClass.Width;
+        private readonly int height = SettingsClass.Height; 
         private List<SnakeElement> snakeBody;
         private Food food;
         private Directions currentDurection;
@@ -29,22 +31,20 @@ namespace WpfApp1
             InitializeComponent();
             Backgr.ImageSource = new BitmapImage(new Uri("images/backgame.png", UriKind.Relative));
             score = 0;
-           
-
             Width = width + 100;
-            
-            
             foodCanvas.Width = canvas.Width = width;
             canvas.Height = foodCanvas.Height = Height = height;
-
+            myGrid.Height = height;
+            myGrid.Children.Add(new Rectangle{Height = height, Width = 100, StrokeDashCap = PenLineCap.Round,
+                Stroke = Brushes.Gray});
+            bestScore.Text = ScoreClass.GetBestScore();
             time = new DispatcherTimer();
             currentDurection = Directions.Stay;
             snakeBody = new List<SnakeElement>();
-
-            snakeBody.Add(new SnakeElementHead(new Point(moveSize, moveSize)));
+            snakeBody.Add(new SnakeElement(new Point(moveSize, moveSize)));
             snakeBody[0].rectangle.Fill = SettingsClass.ColorOfPlayer;
             time.Interval =
-                new TimeSpan(0, 0, 0, 0, SettingsClass.Difficulty); /*you can change speed of the snake here */
+                new TimeSpan(0, 0, 0, 0, SettingsClass.Difficulty);
             time.Tick += time_Tick;
         }
 
@@ -60,10 +60,7 @@ namespace WpfApp1
             if (e.Key == Key.Right && currentDurection != Directions.Left)
                 currentDurection = Directions.Right;
         }
-
-
-
-
+        
         void time_Tick(object sender, EventArgs e)
         {
             MoveSnake();
@@ -78,6 +75,11 @@ namespace WpfApp1
             AddFoodInCanvas();
             AddSnakeInCanvas();
             time.Start();
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            Owner.Close();
         }
     }
 }

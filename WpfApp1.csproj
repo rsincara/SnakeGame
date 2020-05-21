@@ -60,9 +60,8 @@
     </Compile>
     <Compile Include="GameClasses\Directions.cs" />
     <Compile Include="GameClasses\Food.cs" />
+    <Compile Include="GameClasses\ScoreClass.cs" />
     <Compile Include="GameClasses\SnakeElement.cs" />
-    <Compile Include="GameClasses\SnakeElementHead.cs" />
-    <Compile Include="GameClasses\Rock.cs" />
     <Compile Include="Interfaces\ICreature.cs" />
     <Compile Include="Interfaces\IFood.cs" />
     <Compile Include="Methods.cs">

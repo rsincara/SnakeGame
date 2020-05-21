@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 using System.Windows.Threading;
 using WpfApp1.GameClasses;
 
@@ -16,22 +17,28 @@ namespace WpfApp1
         const int moveSize = 30;
         int score;
         BotMoving botMoving;
-        DispatcherTimer time;
-        private Random rnd = new Random();
+        readonly DispatcherTimer time;
+        private readonly Random rnd = new Random();
         int playerLifes = 3, enemyLifes = 3;
-        private int width = SettingsClass.Width; // Ширина окна
-        private int height = SettingsClass.Height; // Высота окна
+        private readonly int width = SettingsClass.Width; // Ширина окна
+        private readonly int height = SettingsClass.Height; // Высота окна
         private List<SnakeElement> snakeBody;
         private List<SnakeElement> snakeBodyEnemy;
         private Food food;
         private Directions currentPlayerDirection;
         Directions currentEnemyDirections;
-        private Point playerStartPosition;
-        private Point enemyStartPosition;
+        private readonly Point playerStartPosition;
+        private readonly Point enemyStartPosition;
 
         public MultiPlayer()
         {
             InitializeComponent();
+            myGrid.Height = height;
+            myGrid.Children.Add(new Rectangle{Height = height, Width = 100, StrokeDashCap = PenLineCap.Round,
+                Stroke = Brushes.Gray});
+            bestScore.Text = ScoreClass.GetBestScore();
+            firstPlayerLifes.Text = firstPlayerLifes.Text + playerLifes;
+            secondPlayerLifes.Text = secondPlayerLifes.Text + enemyLifes;
             Backgr.ImageSource = new BitmapImage(new Uri("images/backgame.png", UriKind.Relative));
             score = 0;
             Width = width + 100;
@@ -79,13 +86,11 @@ namespace WpfApp1
 
         private void GameOver(string cause)
         {
-            var list = new List<string>();
             MessageBox.Show(cause);
             Close();
             time.Stop();
             this.Owner.Show();
-            list.Add(score.ToString());
-            File.AppendAllLines("scores/scores.txt", list);
+            ScoreClass.AddScore(score);
         }
 
         void time_Tick(object sender, EventArgs e)

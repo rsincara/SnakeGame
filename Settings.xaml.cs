@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -48,10 +49,10 @@ namespace WpfApp1
             var rbut = rb.First();
             switch (rbut.Content)
             {
-                case "Легкая":
+                case "Easy":
                     SettingsClass.Difficulty = 300;
                     break;
-                case "Средняя":
+                case "Medium":
                     SettingsClass.Difficulty = 200;
                     break;
                 default:
@@ -76,20 +77,14 @@ namespace WpfApp1
                     break;
             }
 
-            
-
            if (snakeColors.SelectedValue == null)
            {
                MessageBox.Show("Выберите цвет");
                return;
            }
-              
             var selectedColor = snakeColors.SelectedValue.ToString();
-         
             var clr = typeof(Brushes).GetRuntimeProperty(selectedColor);
-            
             SettingsClass.ColorOfPlayer = (Brush)clr.GetValue(null, null);
-
             SettingsClass.Width = wid;
             SettingsClass.Height = heig;
             Close();
@@ -100,6 +95,11 @@ namespace WpfApp1
         {
             Close();
             Owner.Show();
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            Owner.Close();
         }
     }
 }
