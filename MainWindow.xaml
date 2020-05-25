@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="800" ResizeMode="NoResize">
+        Title="SnakeGame" Height="600" Width="800" ResizeMode="NoResize">
     <Window.Background>
         <ImageBrush x:Name="Backgr" ImageSource="C:\Users\Bitard\source\repos\WpfApp1\bin\Debug\images\main.jpg"/>
     </Window.Background>

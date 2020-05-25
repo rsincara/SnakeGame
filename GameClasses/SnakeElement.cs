@@ -14,18 +14,19 @@ namespace WpfApp1
 {
     public class SnakeElement : ICreature
     {
-       public Rectangle rectangle;
+        public Rectangle rectangle;
         public Point point { get; set; }
-        
+
         public SnakeElement(Point point)
         {
             this.point = point;
             rectangle = new Rectangle();
             rectangle.Height = rectangle.Width = 30;
-            rectangle.Fill = SettingsClass.ColorOfPlayer;
+            rectangle.Fill = SettingsClass.PlayerColor;
             rectangle.StrokeDashCap = PenLineCap.Round;
             rectangle.Stroke = Brushes.Black;
         }
+
         public void Create(Canvas canvas)
         {
             Canvas.SetLeft(rectangle, point.X);
@@ -33,6 +34,4 @@ namespace WpfApp1
             canvas.Children.Add(rectangle);
         }
     }
-
-  
 }

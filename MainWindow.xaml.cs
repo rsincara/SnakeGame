@@ -26,7 +26,6 @@ namespace WpfApp1
             InitializeComponent();
             Backgr.ImageSource = new BitmapImage(new Uri("images/main.jpg", UriKind.Relative));
 
-
         }
 
 
@@ -73,7 +72,7 @@ namespace WpfApp1
                             "\nНе дайте 2-му игроку съесть нужное количество яблок!" +
                             "\nТакже нельзя врезаться в противника. У каждого игрока по 3 жизни." +
                             "\nЕсли второй игрок врезается в первого, первому дается + 100 очков" +
-                            "\nУдачи!");
+                            "\nУдачи!", "Правила игры");
         }
     }
 }

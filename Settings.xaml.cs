@@ -27,7 +27,6 @@ namespace WpfApp1
             width.Text = SettingsClass.Width.ToString();
             var colors = typeof(Brushes).GetProperties().Select(x => x.Name);
             snakeColors.ItemsSource = colors;
-
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -40,51 +39,45 @@ namespace WpfApp1
                 return;
             }
 
-            var rb = diffStack.Children.OfType<RadioButton>().Where(x => (bool)x.IsChecked);
-            if (!rb.Any())
+            var rb = diffStack.Children.OfType<RadioButton>().Where(x => (bool) x.IsChecked);
+            if (rb.Any())
             {
-                MessageBox.Show("Вы не выбрали сложность!");
-                return;
-            }
-            var rbut = rb.First();
-            switch (rbut.Content)
-            {
-                case "Easy":
-                    SettingsClass.Difficulty = 300;
-                    break;
-                case "Medium":
-                    SettingsClass.Difficulty = 200;
-                    break;
-                default:
-                    SettingsClass.Difficulty = 100;
-                    break;
+                var rbut = rb.First();
+                switch (rbut.Content)
+                {
+                    case "Easy":
+                        SettingsClass.Difficulty = 300;
+                        break;
+                    case "Medium":
+                        SettingsClass.Difficulty = 200;
+                        break;
+                    default:
+                        SettingsClass.Difficulty = 100;
+                        break;
+                }
             }
 
-            var mode = modeStack.Children.OfType<RadioButton>().Where(x => (bool)x.IsChecked);
-            if (!mode.Any())
+            var mode = modeStack.Children.OfType<RadioButton>().Where(x => (bool) x.IsChecked);
+            if (mode.Any())
             {
-                MessageBox.Show("Вы не выбрали режим!");
-                return;
+                switch (mode.First().Name)
+                {
+                    case "friendMode":
+                        SettingsClass.Mode = 0;
+                        break;
+                    default:
+                        SettingsClass.Mode = 1;
+                        break;
+                }
             }
 
-            switch (mode.First().Name)
+            if (snakeColors.SelectedValue != null)
             {
-                case "friendMode":
-                    SettingsClass.Mode = 0;
-                    break;
-                default:
-                    SettingsClass.Mode = 1;
-                    break;
+                var selectedColor = snakeColors.SelectedValue.ToString();
+                var clr = typeof(Brushes).GetRuntimeProperty(selectedColor);
+                SettingsClass.PlayerColor = (Brush) clr.GetValue(null, null);
             }
-
-           if (snakeColors.SelectedValue == null)
-           {
-               MessageBox.Show("Выберите цвет");
-               return;
-           }
-            var selectedColor = snakeColors.SelectedValue.ToString();
-            var clr = typeof(Brushes).GetRuntimeProperty(selectedColor);
-            SettingsClass.ColorOfPlayer = (Brush)clr.GetValue(null, null);
+            
             SettingsClass.Width = wid;
             SettingsClass.Height = heig;
             Close();
@@ -99,7 +92,7 @@ namespace WpfApp1
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            Owner.Close();
+            Owner.Show();
         }
     }
 }

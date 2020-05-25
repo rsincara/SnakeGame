@@ -237,7 +237,7 @@ namespace WpfApp1
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            Owner.Close();
+            Owner.Show();
         }
     }
 }

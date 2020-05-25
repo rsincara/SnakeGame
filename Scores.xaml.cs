@@ -27,7 +27,8 @@ namespace WpfApp1
             stackPanel.HorizontalAlignment = HorizontalAlignment.Left;
             stackPanel.Margin = new Thickness(10, 30, 0, 0);
             stackPanel.Height = Height - 100;
-            var scores = ScoreClass.GetScoresArray();
+            var scores = ScoreClass.GetFirstScoresArray();
+            
             for (int i = 0; i < scores.Length; i++)
             {
                 var txtbl = new TextBlock();
@@ -35,6 +36,7 @@ namespace WpfApp1
                 txtbl.Text = (i + 1).ToString() + ". " + scores[i];
                 stackPanel.Children.Add(txtbl);
             }
+            stackPanel.Children.Add(new TextBlock {Text = "Игра сыграно: " + ScoreClass.GetGamesCount(), FontSize = 26});
             myGrid.Children.Add(stackPanel);
         }
 
@@ -46,7 +48,7 @@ namespace WpfApp1
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            Owner.Close();
+            Owner.Show();
         }
     }
 }

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         Closing="Window_Closing"  
-        Title="SingleplayerWindow" Height="450" Width="800" KeyDown="Window_KeyDown" Loaded="Window_Loaded" >
+        Title="SinglePlayer" Height="450" Width="800" KeyDown="Window_KeyDown" Loaded="Window_Loaded" >
     <Window.Background>
         <ImageBrush x:Name="Backgr" ImageSource="C:\Users\Bitard\source\repos\WpfApp1\bin\Debug\images\backgame.png"/>
     </Window.Background>

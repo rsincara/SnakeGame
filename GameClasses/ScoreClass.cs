@@ -6,7 +6,7 @@ namespace WpfApp1.GameClasses
 {
     public static class ScoreClass
     {
-        public static string[] GetScoresArray()
+        public static string[] GetFirstScoresArray()
         {
             var records = File.ReadAllLines("scores/scores.txt").OrderByDescending(int.Parse);
             return records.Count() > 10 ? records.Take(10).ToArray() : records.ToArray();
@@ -21,7 +21,12 @@ namespace WpfApp1.GameClasses
 
         public static string GetBestScore()
         {
-            return GetScoresArray().First();
+            return GetFirstScoresArray().First();
+        }
+
+        public static string GetGamesCount()
+        {
+            return File.ReadAllLines("scores/scores.txt").Length.ToString();
         }
     }
 }

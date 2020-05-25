@@ -7,10 +7,12 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 using System.IO;
+using System.Threading;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WpfApp1.GameClasses;
+using Timer = System.Timers.Timer;
 
 namespace WpfApp1
 {
@@ -42,7 +44,7 @@ namespace WpfApp1
             currentDurection = Directions.Stay;
             snakeBody = new List<SnakeElement>();
             snakeBody.Add(new SnakeElement(new Point(moveSize, moveSize)));
-            snakeBody[0].rectangle.Fill = SettingsClass.ColorOfPlayer;
+            snakeBody[0].rectangle.Fill = SettingsClass.PlayerColor;
             time.Interval =
                 new TimeSpan(0, 0, 0, 0, SettingsClass.Difficulty);
             time.Tick += time_Tick;
@@ -52,17 +54,26 @@ namespace WpfApp1
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Up && currentDurection != Directions.Down)
+            {
                 currentDurection = Directions.Up;
+            }
             if (e.Key == Key.Down && currentDurection != Directions.Up)
+            {
                 currentDurection = Directions.Down;
+            }
             if (e.Key == Key.Left && currentDurection != Directions.Right)
+            {
                 currentDurection = Directions.Left;
+            }
             if (e.Key == Key.Right && currentDurection != Directions.Left)
+            {
                 currentDurection = Directions.Right;
+            }
         }
         
         void time_Tick(object sender, EventArgs e)
         {
+            
             MoveSnake();
             CheckAndIncrease();
             CheckAndChangeDirectory();
@@ -79,7 +90,7 @@ namespace WpfApp1
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
-            Owner.Close();
+            Owner.Show();
         }
     }
 }
