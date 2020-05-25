@@ -54,6 +54,8 @@ namespace WpfApp1
                 score += 10;
                 resultBlock.Text = resultBlock.Text.Substring(0, 6) + score;
             }
+            
+            if(snakebody.Count == 16) GameOver("Первый игрок съел 15 яблок!");
         }
 
         void CheckAndIncreaseEnemy(ref List<SnakeElement> snakebody)
@@ -65,7 +67,6 @@ namespace WpfApp1
                 newSnake.rectangle.Fill = color;
                 snakebody.Add(newSnake);
                 AddFoodInCanvas();
-              
             }
 
             if(snakebody.Count == 16) GameOver("Второй игрок съел 15 яблок!");

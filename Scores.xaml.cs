@@ -36,7 +36,7 @@ namespace WpfApp1
                 txtbl.Text = (i + 1).ToString() + ". " + scores[i];
                 stackPanel.Children.Add(txtbl);
             }
-            stackPanel.Children.Add(new TextBlock {Text = "Игра сыграно: " + ScoreClass.GetGamesCount(), FontSize = 26});
+            stackPanel.Children.Add(new TextBlock {Text = "Игр сыграно: " + ScoreClass.GetGamesCount(), FontSize = 26});
             myGrid.Children.Add(stackPanel);
         }
 
