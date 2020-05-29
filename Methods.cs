@@ -145,14 +145,14 @@ namespace WpfApp1
         }
 
 
-        private void RespawnPlayer(ref List<SnakeElement> snakebody)
+        private void RespawnPlayer()
         {
             --playerLifes;
             firstPlayerLifes.Text = firstPlayerLifes.Text.Substring(0, 10) + playerLifes;
             currentPlayerDirection = Directions.Stay;
-            var color = snakebody[0].rectangle.Fill;
-            snakebody = new List<SnakeElement> {new SnakeElement(playerStartPosition)};
-            snakebody[0].rectangle.Fill = color;
+            var color = snakeBody[0].rectangle.Fill;
+            snakeBody = new List<SnakeElement> {new SnakeElement(playerStartPosition)};
+            snakeBody[0].rectangle.Fill = color;
         }
 
         private void RespawnEnemy()
@@ -173,7 +173,7 @@ namespace WpfApp1
             {
                 PlaySound("eatWall.mp3");
                 if (playerLifes > 1)
-                    RespawnPlayer(ref snakeBody);
+                    RespawnPlayer();
                 else
                 {
                     GameOver("Жизни кончились. Победил второй игрок");
@@ -185,7 +185,12 @@ namespace WpfApp1
                 if (snakeBody[0].point == snakeBody[i].point)
                 {
                     PlaySound("eatSnake.mp3");
-                    GameOver("Себя есть нельзя! Победил второй игрок");
+                    if (playerLifes > 1)
+                        RespawnPlayer();
+                    else
+                    {
+                        GameOver("Жизни кончились. Победил второй игрок");
+                    }
                 }
             }
 
@@ -195,7 +200,7 @@ namespace WpfApp1
                 {
                     PlaySound("eatSnake.mp3");
                     if (playerLifes > 1)
-                        RespawnPlayer(ref snakeBody);
+                        RespawnPlayer();
                     else
                     {
                         GameOver("Жизни кончились. Победил второй игрок");
