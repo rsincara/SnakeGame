@@ -55,7 +55,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BotMoving.cs">
+    <Compile Include="GameClasses\BotMoving.cs">
       <DependentUpon>MultiPlayer.xaml</DependentUpon>
     </Compile>
     <Compile Include="GameClasses\Directions.cs" />
@@ -139,9 +139,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Images\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

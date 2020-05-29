@@ -8,14 +8,13 @@
       <e p="App.xaml" t="Include" />
       <e p="App.xaml.cs" t="Include" />
       <e p="bin" t="ExcludeRecursive" />
-      <e p="BotMoving.cs" t="Include" />
       <e p="GameClasses" t="Include">
+        <e p="BotMoving.cs" t="Include" />
         <e p="Directions.cs" t="Include" />
         <e p="Food.cs" t="Include" />
         <e p="ScoreClass.cs" t="Include" />
         <e p="SnakeElement.cs" t="Include" />
       </e>
-      <e p="Images" t="Include" />
       <e p="Interfaces" t="Include">
         <e p="ICreature.cs" t="Include" />
         <e p="IFood.cs" t="Include" />

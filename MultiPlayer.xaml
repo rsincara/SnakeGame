@@ -15,12 +15,8 @@
         <Canvas x:Name="canvas" HorizontalAlignment="Left" Height="450" VerticalAlignment="Top" Width="800"/>
         <Canvas x:Name="enemyCanvas" HorizontalAlignment="Left" Height="450" VerticalAlignment="Top" Width="800"/>
         <Grid x:Name="myGrid" HorizontalAlignment="Right" Height="400" VerticalAlignment="Top" Width="100">
-            <TextBlock HorizontalAlignment="Left" Margin="0,38,-7,0" TextWrapping="Wrap" Text="Best:" VerticalAlignment="Top" Height="24" Width="107" FontSize="20" FontFamily="Rockwell" FontWeight="Bold"/>
-            <TextBlock x:Name="bestScore" HorizontalAlignment="Left" Margin="-4,55,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Width="101" TextAlignment="Center" FontSize="20" FontWeight="Bold"/>
-            <TextBlock x:Name="resultBlock" HorizontalAlignment="Left" Margin="0,12,0,0" TextWrapping="Wrap" Text="Score: " VerticalAlignment="Top" Height="29" Width="87" FontSize="20"/>
             <TextBlock x:Name="firstPlayerLifes" HorizontalAlignment="Left" Margin="1,83,0,0" TextWrapping="Wrap" Text="1p Lifes: " VerticalAlignment="Top" FontSize="20" FontWeight="Bold" TextDecorations="{x:Null}"/>
             <TextBlock x:Name="secondPlayerLifes" HorizontalAlignment="Left" Margin="2,105,0,0" TextWrapping="Wrap" Text="2p Lifes: " VerticalAlignment="Top" FontSize="20" FontWeight="Bold"/>
-
         </Grid>
     </Grid>
 </Window>

@@ -14,33 +14,37 @@ namespace WpfApp1
 {
     public partial class MultiPlayer : Window
     {
+        readonly MediaPlayer gameSounds = new MediaPlayer {Volume = 0.1};
+        readonly MediaPlayer backgroundMusic = new MediaPlayer {Volume = 0.1};
         const int moveSize = 30;
-        int score;
         BotMoving botMoving;
         readonly DispatcherTimer time;
-        private readonly Random rnd = new Random();
+        readonly Random rnd = new Random();
         int playerLifes = 3, enemyLifes = 3;
-        private readonly int width = SettingsClass.Width; // Ширина окна
-        private readonly int height = SettingsClass.Height; // Высота окна
-        private List<SnakeElement> snakeBody;
-        private List<SnakeElement> snakeBodyEnemy;
-        private Food food;
-        private Directions currentPlayerDirection;
+        readonly int width = SettingsClass.Width; // Ширина окна
+        readonly int height = SettingsClass.Height; // Высота окна
+        List<SnakeElement> snakeBody;
+        List<SnakeElement> snakeBodyEnemy;
+        Food food;
+        Directions currentPlayerDirection;
         Directions currentEnemyDirections;
-        private readonly Point playerStartPosition;
-        private readonly Point enemyStartPosition;
+        readonly Point playerStartPosition;
+        readonly Point enemyStartPosition;
 
         public MultiPlayer()
         {
             InitializeComponent();
+            backgroundMusic.Open(new Uri("sounds/gameMusic.mp3", UriKind.RelativeOrAbsolute));
+            backgroundMusic.Play();
             myGrid.Height = height;
-            myGrid.Children.Add(new Rectangle{Height = height, Width = 100, StrokeDashCap = PenLineCap.Round,
-                Stroke = Brushes.Gray});
-            bestScore.Text = ScoreClass.GetBestScore();
+            myGrid.Children.Add(new Rectangle
+            {
+                Height = height, Width = 100, StrokeDashCap = PenLineCap.Round,
+                Stroke = Brushes.Gray
+            });
             firstPlayerLifes.Text = firstPlayerLifes.Text + playerLifes;
             secondPlayerLifes.Text = secondPlayerLifes.Text + enemyLifes;
             Backgr.ImageSource = new BitmapImage(new Uri("images/backgame.png", UriKind.Relative));
-            score = 0;
             Width = width + 100;
             foodCanvas.Width = enemyCanvas.Width = canvas.Width = width;
             foodCanvas.Height = enemyCanvas.Height = canvas.Height = Height = height;
@@ -84,16 +88,8 @@ namespace WpfApp1
             }
         }
 
-        private void GameOver(string cause)
-        {
-            MessageBox.Show(cause);
-            Close();
-            time.Stop();
-            this.Owner.Show();
-            ScoreClass.AddScore(score);
-        }
 
-        void time_Tick(object sender, EventArgs e)
+        private void time_Tick(object sender, EventArgs e)
         {
             botMoving = new BotMoving(food, snakeBody, snakeBodyEnemy,
                                       currentEnemyDirections, width, height, moveSize);
@@ -101,8 +97,8 @@ namespace WpfApp1
                 currentEnemyDirections = botMoving.GetNextDirection();
             MoveSnake(snakeBody);
             MoveSnake(snakeBodyEnemy);
-            CheckAndIncreaseEnemy(ref snakeBodyEnemy);
-            CheckAndIncreasePlayer(ref snakeBody);
+            CheckAndIncreaseEnemy(snakeBodyEnemy);
+            CheckAndIncreasePlayer(snakeBody);
             CheckAndChangeDirectory();
             DrawSnake(snakeBody, canvas);
             DrawSnake(snakeBodyEnemy, enemyCanvas);

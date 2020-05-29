@@ -9,21 +9,18 @@ namespace WpfApp1
 {
     public class Food : IFood
     {
-        
         ImageBrush food = new ImageBrush(new BitmapImage(new Uri("images/apple.png", UriKind.Relative)));
-        
         public Ellipse circle;
         public Point point { get; set; }
-
+        
         public Food(Point point)
         {
             this.point = point;
             circle = new Ellipse();
             circle.Width = circle.Height = 30;
             circle.Fill = food;
-            
-            
         }
+        
         public void Create(Canvas canvas)
         {
             Canvas.SetLeft(circle, point.X);

@@ -1,5 +1,4 @@
-using System.Collections.Generic;
-using System.IO;
+using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Shapes;
@@ -11,14 +10,22 @@ namespace WpfApp1
     {
         private void GameOver(string cause)
         {
+            backgroundMusic.Stop();
             MessageBox.Show(cause);
             Close();
             time.Stop();
             this.Owner.Show();
             ScoreClass.AddScore(score);
+            MainWindow.player.Play();
         }
 
-        void AddSnakeInCanvas()
+        private void PlaySound(string soundName)
+        {
+            gameSounds.Open(new Uri("sounds/" + soundName, UriKind.RelativeOrAbsolute));
+            gameSounds.Play();
+        }
+
+        private void AddSnakeInCanvas()
         {
             foreach (var snake in snakeBody)
             {
@@ -26,14 +33,14 @@ namespace WpfApp1
             }
         }
 
-        void AddFoodInCanvas()
+        private void AddFoodInCanvas()
         {
             var correctPoint = new Point();
             var flag = true;
             while (flag)
             {
                 correctPoint = new Point(rnd.Next(0, width / (moveSize + 2)) * moveSize,
-                    rnd.Next(0, height / (moveSize + 2)) * moveSize);
+                                         rnd.Next(0, height / (moveSize + 2)) * moveSize);
                 flag = snakeBody.Any(x => x.point == correctPoint);
             }
             food = new Food(correctPoint);
@@ -41,7 +48,8 @@ namespace WpfApp1
             foodCanvas.Children.Clear();
             foodCanvas.Children.Add(food.circle);
         }
-        void MoveSnake()
+
+        private void MoveSnake()
         {
             for (int i = snakeBody.Count - 1; i > 0; i--)
             {
@@ -49,18 +57,19 @@ namespace WpfApp1
             }
         }
 
-        void CheckAndIncrease()
+        private void CheckAndIncrease()
         {
             if (snakeBody[0].point == food.point)
             {
+                PlaySound("apple.mp3");
                 snakeBody.Add(new SnakeElement(food.point));
                 AddFoodInCanvas();
                 score += 10;
-                resultBlock.Text = resultBlock.Text.Substring(0,6) + score;
+                resultBlock.Text = resultBlock.Text.Substring(0, 6) + score;
             }
         }
 
-        void CheckAndChangeDirectory()
+        private void CheckAndChangeDirectory()
         {
             switch (currentDurection)
             {
@@ -79,11 +88,12 @@ namespace WpfApp1
             }
         }
 
-        void CheckForFails()
+        private void CheckForFails()
         {
             if (snakeBody[0].point.X < 0 || snakeBody[0].point.Y < 0 || snakeBody[0].point.X > width - moveSize ||
                 snakeBody[0].point.Y > height - moveSize)
             {
+                PlaySound("eatWall.mp3");
                 GameOver("Вы проиграли, ваш рекорд: " + score);
             }
 
@@ -91,12 +101,13 @@ namespace WpfApp1
             {
                 if (snakeBody[0].point == snakeBody[i].point)
                 {
+                    PlaySound("eatSnake.mp3");
                     GameOver("Вы съели сами себя! Ваш результат: " + score);
                 }
             }
         }
 
-        void DrawSnake()
+        private void DrawSnake()
         {
             int count = 0;
             for (int i = 0; i < canvas.Children.Count; i++)
@@ -104,7 +115,6 @@ namespace WpfApp1
                 if (canvas.Children[i] is Rectangle)
                     count++;
             }
-
             canvas.Children.RemoveRange(0, count);
             AddSnakeInCanvas();
         }

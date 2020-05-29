@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,12 +21,19 @@ namespace WpfApp1
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static MediaPlayer player = new MediaPlayer {Volume = 0.1};
+
         public MainWindow()
         {
-            
             InitializeComponent();
             Backgr.ImageSource = new BitmapImage(new Uri("images/main.jpg", UriKind.Relative));
-
+            player.Open(new Uri("sounds/menu.mp3", UriKind.RelativeOrAbsolute));
+            player.Play();
+            player.MediaEnded += (s, e) =>
+            {
+                player.Stop();
+                player.Play();
+            };
         }
 
 
@@ -35,7 +43,7 @@ namespace WpfApp1
             window.Owner = this;
             Hide();
             window.Show();
-
+            player.Stop();
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -60,19 +68,19 @@ namespace WpfApp1
             window.Owner = this;
             Hide();
             window.Show();
+            player.Stop();
         }
 
         private void RulesButton(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("В одиночной игре: не врезайтесь в края карты и себя. Собирайте как можно больше яблок и растите! За каждое яблоко дается 10 очков!" +
-                            "\nВ мультиплеере: игра оканчивается если: " +
-                            "\n1) Первый игрок съел себя или растратил все жизни" +
-                            "\n2) Второй игрок растратил все жизни" +
-                            "\n3) Какой-либо игрок съел подряд 15 яблок" +
-                            "\nНе дайте 2-му игроку съесть нужное количество яблок!" +
-                            "\nТакже нельзя врезаться в противника. У каждого игрока по 3 жизни." +
-                            "\nЕсли второй игрок врезается в первого, первому дается + 100 очков" +
-                            "\nУдачи!", "Правила игры");
+            MessageBox.Show(
+                "В одиночной игре: не врезайтесь в края карты и себя. Собирайте как можно больше яблок и растите! За каждое яблоко дается 10 очков!" +
+                "\nВ мультиплеере: игра оканчивается если: " +
+                "\n1) Какой-либо игрок растратил все жизни" +
+                "\n2) Какой-либо игрок съел подряд 15 яблок" +
+                "\nНе дайте противнику съесть нужное количество яблок!" +
+                "\nТакже нельзя врезаться в противника. У каждого игрока по 3 жизни." +
+                "\nУдачи!", "Правила игры");
         }
     }
 }

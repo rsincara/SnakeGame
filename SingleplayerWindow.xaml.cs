@@ -12,33 +12,39 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WpfApp1.GameClasses;
-using Timer = System.Timers.Timer;
 
 namespace WpfApp1
 {
     public partial class SingleplayerWindow : Window
     {
+        MediaPlayer gameSounds = new MediaPlayer {Volume = 0.1};
+        MediaPlayer backgroundMusic = new MediaPlayer {Volume = 0.1};
         const int moveSize = 30;
         int score;
         readonly DispatcherTimer time;
-        private readonly Random rnd = new Random();
-        private readonly int width = SettingsClass.Width;
-        private readonly int height = SettingsClass.Height; 
-        private List<SnakeElement> snakeBody;
-        private Food food;
-        private Directions currentDurection;
+        readonly Random rnd = new Random();
+        readonly int width = SettingsClass.Width;
+        readonly int height = SettingsClass.Height;
+        List<SnakeElement> snakeBody;
+        Food food;
+        Directions currentDurection;
 
         public SingleplayerWindow()
         {
             InitializeComponent();
+            backgroundMusic.Open(new Uri("sounds/gameMusic.mp3", UriKind.RelativeOrAbsolute));
+            backgroundMusic.Play();
             Backgr.ImageSource = new BitmapImage(new Uri("images/backgame.png", UriKind.Relative));
             score = 0;
             Width = width + 100;
             foodCanvas.Width = canvas.Width = width;
             canvas.Height = foodCanvas.Height = Height = height;
             myGrid.Height = height;
-            myGrid.Children.Add(new Rectangle{Height = height, Width = 100, StrokeDashCap = PenLineCap.Round,
-                Stroke = Brushes.Gray});
+            myGrid.Children.Add(new Rectangle
+            {
+                Height = height, Width = 100, StrokeDashCap = PenLineCap.Round,
+                Stroke = Brushes.Gray
+            });
             bestScore.Text = ScoreClass.GetBestScore();
             time = new DispatcherTimer();
             currentDurection = Directions.Stay;
@@ -70,10 +76,9 @@ namespace WpfApp1
                 currentDurection = Directions.Right;
             }
         }
-        
-        void time_Tick(object sender, EventArgs e)
+
+        private void time_Tick(object sender, EventArgs e)
         {
-            
             MoveSnake();
             CheckAndIncrease();
             CheckAndChangeDirectory();
@@ -81,7 +86,7 @@ namespace WpfApp1
             DrawSnake();
         }
 
-        void Window_Loaded(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             AddFoodInCanvas();
             AddSnakeInCanvas();
@@ -90,6 +95,9 @@ namespace WpfApp1
 
         private void Window_Closing(object sender, CancelEventArgs e)
         {
+            time.Stop();
+            backgroundMusic.Stop();
+            MainWindow.player.Play();
             Owner.Show();
         }
     }
