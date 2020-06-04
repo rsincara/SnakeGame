@@ -1,10 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Shapes;
 using WpfApp1.GameClasses;
 
 namespace WpfApp1
@@ -60,7 +58,6 @@ namespace WpfApp1
                 snakebody.Add(new SnakeElement(food.point));
                 AddFoodInCanvas();
             }
-
             if (snakebody.Count == 16) GameOver("Первый игрок съел 15 яблок!");
         }
 
@@ -81,10 +78,9 @@ namespace WpfApp1
 
         private static SnakeElement CreateSnakeBody(SnakeElement snakeElement, Point newPoint)
         {
-            var color = snakeElement.rectangle.Fill;
-            var newSnake = new SnakeElement(newPoint);
-            newSnake.rectangle.Fill = color;
-            return newSnake;
+            var ns = new SnakeElement(newPoint);
+            ns.rectangle.Fill = snakeElement.rectangle.Fill;
+            return ns;
         }
 
         private void CheckAndChangeDirectory()
@@ -258,21 +254,8 @@ namespace WpfApp1
 
         private void DrawSnake(List<SnakeElement> snakebody, Canvas canvas)
         {
-            int count = 0;
-            foreach (var item in canvas.Children)
-            {
-                if (item is Rectangle) count++;
-            }
-            canvas.Children.RemoveRange(0, count);
+            canvas.Children.Clear();
             AddSnakeInCanvas(snakebody, canvas);
-        }
-
-        private void Window_Closing(object sender, CancelEventArgs e)
-        {
-            time.Stop();
-            backgroundMusic.Stop();
-            MainWindow.player.Play();
-            Owner.Show();
         }
     }
 }

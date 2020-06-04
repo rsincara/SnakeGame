@@ -8,7 +8,6 @@ namespace WpfApp1
     public partial class MainWindow : Window
     {
         public static MediaPlayer player = new MediaPlayer {Volume = 0.1};
-
         public MainWindow()
         {
             InitializeComponent();

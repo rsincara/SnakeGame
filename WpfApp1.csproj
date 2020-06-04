@@ -61,6 +61,9 @@
     <Compile Include="GameClasses\Directions.cs" />
     <Compile Include="GameClasses\Food.cs" />
     <Compile Include="GameClasses\ScoreClass.cs" />
+    <Compile Include="GameClasses\SettingsClass.cs">
+      <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GameClasses\SnakeElement.cs" />
     <Compile Include="Interfaces\ICreature.cs" />
     <Compile Include="Interfaces\IFood.cs" />
@@ -72,9 +75,6 @@
     </Compile>
     <Compile Include="Scores.xaml.cs">
       <DependentUpon>Scores.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="SettingsClass.cs">
-      <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>

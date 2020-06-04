@@ -74,20 +74,30 @@ namespace WpfApp1
             switch (currentDurection)
             {
                 case Directions.Down:
-                    snakeBody[0] = new SnakeElement(new Point(snakeBody[0].point.X, snakeBody[0].point.Y + moveSize));
+                    snakeBody[0] = CreateSnakeBody(snakeBody[0],
+                                                   new Point(snakeBody[0].point.X, snakeBody[0].point.Y + moveSize));
                     break;
                 case Directions.Left:
-                    snakeBody[0] = new SnakeElement(new Point(snakeBody[0].point.X - moveSize, snakeBody[0].point.Y));
+                    snakeBody[0] = CreateSnakeBody(snakeBody[0],
+                                                   new Point(snakeBody[0].point.X - moveSize, snakeBody[0].point.Y));
                     break;
                 case Directions.Right:
-                    snakeBody[0] = new SnakeElement(new Point(snakeBody[0].point.X + moveSize, snakeBody[0].point.Y));
+                    snakeBody[0] = CreateSnakeBody(snakeBody[0],
+                                                   new Point(snakeBody[0].point.X + moveSize, snakeBody[0].point.Y));
                     break;
                 case Directions.Up:
-                    snakeBody[0] = new SnakeElement(new Point(snakeBody[0].point.X, snakeBody[0].point.Y - moveSize));
+                    snakeBody[0] = CreateSnakeBody(snakeBody[0],
+                                                   new Point(snakeBody[0].point.X, snakeBody[0].point.Y - moveSize));
                     break;
             }
         }
 
+        private static SnakeElement CreateSnakeBody(SnakeElement snakeElement, Point newPoint)
+        {
+            var ns = new SnakeElement(newPoint);
+            ns.rectangle.Fill = snakeElement.rectangle.Fill;
+            return ns;
+        }
         private void CheckForFails()
         {
             if (snakeBody[0].point.X < 0 || snakeBody[0].point.Y < 0 || snakeBody[0].point.X > width - moveSize ||
@@ -109,13 +119,7 @@ namespace WpfApp1
 
         private void DrawSnake()
         {
-            int count = 0;
-            for (int i = 0; i < canvas.Children.Count; i++)
-            {
-                if (canvas.Children[i] is Rectangle)
-                    count++;
-            }
-            canvas.Children.RemoveRange(0, count);
+            canvas.Children.Clear();
             AddSnakeInCanvas();
         }
     }

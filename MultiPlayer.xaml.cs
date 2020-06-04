@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -110,6 +111,14 @@ namespace WpfApp1
             AddSnakeInCanvas(snakeBody, canvas);
             AddSnakeInCanvas(snakeBodyEnemy, enemyCanvas);
             time.Start();
+        }
+        
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            time.Stop();
+            backgroundMusic.Stop();
+            MainWindow.player.Play();
+            Owner.Show();
         }
     }
 }

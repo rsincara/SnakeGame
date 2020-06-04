@@ -55,22 +55,14 @@ namespace WpfApp1
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.Key == Key.Up && currentDurection != Directions.Down)
-            {
+            if (e.Key == Key.Up && currentDurection != Directions.Down) 
                 currentDurection = Directions.Up;
-            }
-            if (e.Key == Key.Down && currentDurection != Directions.Up)
-            {
+            if (e.Key == Key.Down && currentDurection != Directions.Up) 
                 currentDurection = Directions.Down;
-            }
-            if (e.Key == Key.Left && currentDurection != Directions.Right)
-            {
+            if (e.Key == Key.Left && currentDurection != Directions.Right) 
                 currentDurection = Directions.Left;
-            }
-            if (e.Key == Key.Right && currentDurection != Directions.Left)
-            {
+            if (e.Key == Key.Right && currentDurection != Directions.Left) 
                 currentDurection = Directions.Right;
-            }
         }
 
         private void time_Tick(object sender, EventArgs e)
